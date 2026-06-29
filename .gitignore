@@ -9,3 +9,4 @@ dist/
 .env
 .qodo/
 .vscode/
+.DS_Store
