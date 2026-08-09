@@ -11,19 +11,19 @@ signal.
 
 ## Skill Routing
 - Selected repo-local rules:
-- Optional Qodo rules:
+- Hosted review status: skipped by policy
 - Planning skill used: `workshop-plan-from-task`
 - Implementation entry skill: `workshop-tdd-bdd`
 - Conditional implementation skills:
   - `payment-idempotency` when changing payment mutation workflows.
   - `workshop-failure-path-testing` when adding or changing failure gates.
-- Pre-PR review skills:
+- Before-pull-request review skills:
   - `workshop-guidelines-audit`
   - optional `workshop-pythonic-review` for changed Python code
-- Post-review skill: optional `qodo-pr-resolver` after Qodo posts PR findings.
+- Post-review workflow: address local review findings and verify again.
 - Exact next prompt after planning:
   ```text
-  Use the workshop TDD/BDD skill and the plan files just created.
+  Use the workshop test-driven development (TDD) and behavior-driven development (BDD) skill and the plan files just created.
   Write the smallest failing tests first for the selected behavior.
   Do not implement production code until the failing tests prove the behavior gap.
   ```
@@ -47,8 +47,8 @@ signal.
 - Typecheck:
 - Security/static analysis:
 - Repo rule audit:
-- Qodo PR review:
-- Teaching value: quality is checked early and often instead of waiting for the PR.
+- Local pull-request review:
+- Teaching value: quality is checked early and often instead of waiting for the pull request.
 
 ## Failure and Recovery Rules
 - What must fail closed?
@@ -63,7 +63,7 @@ signal.
 
 ## Definition of Done
 - Local gates pass.
-- PR review is addressed.
+- Pull-request review is addressed.
 - Human reviewer can understand the risk.
 - Teaching value: done means verified and reviewable, not merely changed.
 

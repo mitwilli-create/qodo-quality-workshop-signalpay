@@ -1,23 +1,18 @@
-# 01. Qodo Portal and GitHub
+# 01. Local Quality Assurance and GitHub
 
-Qodo reviews pull requests where your team already works.
+The former hosted-review setup lesson is retired. Qodo is fully halted, the
+account and integrations are deleted, and this workshop must not connect a
+repository to Qodo or any other hosted reviewer.
 
-## Steps
+## Current workflow
 
-1. Sign into the [Qodo portal](https://app.qodo.ai/).
-2. Connect GitHub.
-3. Grant access to your fork of this repo.
-4. Confirm that Qodo can see the repository before opening your workshop PR.
+1. Read `AGENTS.md`, `rules/README.md`, and the applicable `PAY-*` rules.
+2. Install the committed local skills with `make install-skills`.
+3. Write behavior tests before implementation.
+4. Run `make verify`, inspect the diff with the local review skill, and record
+   the exact evidence.
+5. Open a pull request only after local quality assurance passes.
 
-## Checkpoint
-
-You are ready when:
-
-- your fork exists on GitHub
-- Qodo is connected to GitHub
-- your fork is selected or visible in the Qodo portal
-
-## Fallback
-
-If Qodo GitHub setup is blocked, continue with local gates and the instructor PR. You can finish the Qodo PR review portion asynchronously after the workshop.
-
+No provider account, application programming interface (API) key, hosted dashboard, or automatic reviewer is
+required. If an old copy of this lesson tells you to connect a provider, treat
+that instruction as superseded.

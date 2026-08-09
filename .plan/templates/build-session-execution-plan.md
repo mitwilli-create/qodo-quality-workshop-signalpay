@@ -12,7 +12,7 @@ inventing the workflow.
 - Branch:
 - Current local verification:
 - Selected repo-local rule IDs:
-- Optional Qodo rules status:
+- Hosted review status: skipped by policy
 - Teaching value: the starting state separates known evidence from assumptions.
 
 ## Implementation Skill Handoff
@@ -20,7 +20,7 @@ inventing the workflow.
 - First implementation skill to run: `workshop-tdd-bdd`
 - Required implementation prompt:
   ```text
-  Use the workshop TDD/BDD skill and the plan files just created.
+  Use the workshop test-driven development (TDD) and behavior-driven development (BDD) skill and the plan files just created.
   Write the smallest failing tests first for the selected behavior.
   Cover one happy path and at least one failure path.
   Do not implement production code until the failing tests prove the behavior gap.
@@ -29,15 +29,15 @@ inventing the workflow.
   - `payment-idempotency` when changing payment mutation workflows.
   - `workshop-failure-path-testing` when adding or changing failure gates.
 - Review/remediation skills:
-  - `workshop-guidelines-audit` before committing or opening the PR.
+  - `workshop-guidelines-audit` before committing or opening the pull request.
   - optional `workshop-pythonic-review` for changed Python code.
-  - optional `qodo-pr-resolver` only after Qodo posts PR findings.
+  - local remediation after local review findings are recorded.
 - Teaching value: the handoff makes the next agent behavior explicit instead of relying on memory.
 
 ## Execution Steps
 1. Read `AGENTS.md` and `rules/README.md`.
 2. Select the repo-local `PAY-*` rule IDs for the task.
-3. Optionally compare with Qodo rules if available.
+3. Record hosted review as skipped by policy.
 4. Choose implementation skills and fill in the Implementation Skill Handoff.
 5. Run the `workshop-tdd-bdd` prompt from the handoff.
 6. Write failing tests.
@@ -46,8 +46,8 @@ inventing the workflow.
 9. Run `make verify`.
 10. Run `workshop-guidelines-audit`.
 11. Commit with Conventional Commits.
-12. Push and open PR.
-13. Resolve Qodo findings after review.
+12. Push and open a pull request.
+13. Resolve local review findings and verify again.
 - Teaching value: the order is part of the quality system. Planning, rules, and tests come before implementation; remediation comes after review evidence.
 
 ## Test Plan
@@ -66,5 +66,5 @@ inventing the workflow.
 - What passed:
 - What was deferred:
 - Which repo rules were applied:
-- What Qodo found:
-- Teaching value: completion notes preserve evidence for the PR and for later learning.
+- What local review found:
+- Teaching value: completion notes preserve evidence for the pull request and for later learning.

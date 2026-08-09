@@ -1,11 +1,11 @@
 ---
 name: workshop-guidelines-audit
-description: "Audit the current diff against AGENTS.md, repo-local rules, repo-local skills, optional Qodo rules, and workshop quality gates before opening a PR."
+description: "Audit the current diff against AGENTS.md, repo-local rules, repo-local skills, and workshop quality gates before opening a pull request."
 ---
 
 # Workshop Guidelines Audit
 
-Use this skill before committing and before opening a PR.
+Use this skill before committing and before opening a pull request.
 
 ## Sources
 
@@ -15,7 +15,7 @@ Read:
 - `rules/README.md`
 - selected linked rule documents under `rules/`
 - `skills/payment-idempotency/SKILL.md`
-- optional loaded Qodo rules
+- hosted review explicitly skipped by policy
 - `.plan/workshop-payment-task/plan.md`
 
 ## Audit Checklist

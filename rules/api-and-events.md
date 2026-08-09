@@ -1,9 +1,9 @@
-# API and Event Contract Rules
+# Application Programming Interface and Event Contract Rules
 
 Use these rules when changing response models, event payloads, payment
 statuses, or route contracts.
 
-## PAY-005: Public API responses use stable camelCase JSON fields
+## PAY-005: Public application programming interface (API) responses use stable camelCase JSON fields
 
 - Trigger: adding or changing response models or endpoint return payloads.
 - Required behavior: public JSON fields stay camelCase, including

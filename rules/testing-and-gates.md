@@ -18,11 +18,11 @@ Use these rules for every implementation task in the workshop.
 - Required behavior: fix the implementation or tests without disabling Ruff,
   Pyright, Bandit, Pytest, Semgrep, pre-commit, or Conventional Commit checks.
 - Verification signal: `make verify` passes and any gate failure is explained
-  in the PR or workshop notes.
+  in the pull request or workshop notes.
 
 ## Verification Ladder
 
-Run the full ladder before opening a PR:
+Run the full ladder before opening a pull request:
 
 ```bash
 make lint

@@ -1,7 +1,7 @@
 [project]
 name = "qodo-quality-workshop-signalpay"
 version = "0.1.0"
-description = "Self-contained SignalPay API workshop for quality-first AI coding with Qodo."
+description = "Self-contained SignalPay application programming interface workshop for quality-first local quality assurance coding."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -43,4 +43,3 @@ pythonpath = ["src"]
 [tool.bandit]
 exclude_dirs = [".venv", "tests"]
 skips = ["B101"]
-

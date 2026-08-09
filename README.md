@@ -1,23 +1,23 @@
-# Qodo Quality-First AI Coding Workshop
+# Local Quality-First Artificial Intelligence Coding Workshop
 
-This repo is the source of truth for a one-hour hands-on workshop on building a quality-first AI coding workflow with Qodo.
+This repo is the source of truth for a one-hour hands-on workshop on building a quality-first, local-first artificial intelligence (AI) coding workflow. The former Qodo workflow is retired.
 
 You will practice this loop:
 
 ```text
-plan -> read repo rules -> use repo skills -> write tests -> implement -> run local gates -> open PR -> Qodo review -> PR Resolver remediation
+plan -> read repo rules -> use repo skills -> write tests -> implement -> run local gates -> local review -> open pull request (PR) -> verify again
 ```
 
 ## What You Are Building
 
-This is a self-contained FastAPI payments API used to practice quality-first AI coding.
+This is a self-contained FastAPI payments application programming interface (API) used to practice quality-first AI coding.
 
 It has no separate frontend and no external service dependencies. You will interact with the app through FastAPI's browser docs at `/docs`.
 
 The goal is not to build a production payment system. The goal is to practice a repeatable workflow:
 
 ```text
-plan -> read repo rules -> write tests -> implement -> run local gates -> open PR -> review with Qodo -> resolve findings
+plan -> read repo rules -> write tests -> implement -> run local gates -> local review -> open pull request -> resolve findings
 ```
 
 ## What This Repo Is Teaching
@@ -29,16 +29,16 @@ This workshop is a small API wrapped in a quality system. Every directory is her
 - give the agent skills that describe how to work
 - prove behavior with tests
 - catch deterministic issues with static analysis and local gates
-- use Qodo review as an independent review layer
+- use a local review skill as an independent review layer
 - remediate findings and verify again
 
-You can describe this as SDLC or ADLC quality control. The same standards show up before coding, during coding, and after coding:
+You can describe this as software development life cycle (SDLC) or artificial intelligence development life cycle (ADLC) quality control. The same standards show up before coding, during coding, and after coding:
 
 | Phase | Repo artifact | Teaching point |
 | --- | --- | --- |
 | Before coding | `AGENTS.md`, `.plan/`, `rules/`, `skills/` | Agents need intent, standards, and procedures before they generate code. |
 | During coding | `tests/`, `src/`, `.semgrep.yml`, `Makefile` | Behavior and static checks make quality observable while the change is still local. |
-| After coding | `.github/workflows/verify.yml`, PR, Qodo review, PR Resolver | CI and Qodo review add independent review and remediation after local verification. |
+| After coding | `.github/workflows/verify.yml`, local review, pull request | Continuous integration (CI) and local review add independent evidence and remediation after local verification. |
 
 Read the presenter-focused lesson in [docs/07-workshop-teaching-guide.md](docs/07-workshop-teaching-guide.md).
 
@@ -49,8 +49,8 @@ Read the presenter-focused lesson in [docs/07-workshop-teaching-guide.md](docs/0
 | `AGENTS.md` | Operating instructions for coding agents in this repo. |
 | `.plan/` | Planning templates and example plans that explain intent, risk, rules, tests, and execution order. |
 | `rules/` | Repo-local `PAY-*` quality rules that are always available to humans and agents. |
-| `skills/` | Repo-local agent procedures for planning, TDD, payment idempotency, failure-path testing, and review. |
-| `docs/` | Guided workshop lessons for setup, Qodo configuration, rules, gates, PR review, and remediation. |
+| `skills/` | Repo-local agent procedures for planning, test-driven development (TDD), payment idempotency, failure-path testing, and review. |
+| `docs/` | Guided workshop lessons for local rules, gates, pull-request review, and remediation. |
 | `src/signalpay_api/` | The small FastAPI payment API used for the hands-on task. |
 | `tests/` | Behavior and structure tests that make the workshop contract visible. |
 | `.semgrep.yml` | Workshop-specific static analysis for payment mutation risks. |
@@ -80,11 +80,11 @@ http://127.0.0.1:8000/redoc
 http://127.0.0.1:8000/openapi.json
 ```
 
-This workshop app is API-first. The browser UI is FastAPI `/docs`, not a separate React dashboard.
+This workshop app is API-first. The browser user interface (UI) is FastAPI `/docs`, not a separate React dashboard.
 
 ## Choose Your Lane
 
-- **Hands-on:** fork, clone, configure Qodo, make the change, open a PR.
+- **Hands-on:** fork, clone, run local quality assurance (QA), make the change, open a pull request.
 - **Pair/observe:** follow the README and inspect the gates while someone else codes.
 - **Async later:** use this repo as a complete guided workshop after the session.
 
@@ -92,16 +92,16 @@ This workshop app is API-first. The browser UI is FastAPI `/docs`, not a separat
 
 | Time | Activity |
 | --- | --- |
-| 0-5 min | Frame quality-first AI coding: deterministic gates + repo rules/skills + Qodo PR review. |
+| 0-5 min | Frame quality-first AI coding: deterministic gates + repo rules/skills + local review. |
 | 5-10 min | Open this README, choose a lane, fork and clone. |
 | 10-15 min | Run `make doctor`; let your coding agent troubleshoot setup. |
-| 15-22 min | Sign into Qodo, connect GitHub, generate a Qodo API key. |
-| 22-28 min | Configure Qodo Skills safely with agent help. |
-| 28-34 min | Read repo-local rules, optionally compare Qodo rules, and use repo skills before coding. |
+| 15-22 min | Read the repo-local rules and review skills. |
+| 22-28 min | Create the plan and select the applicable quality rules. |
+| 28-34 min | Use repo skills before coding and confirm the local QA command. |
 | 34-43 min | Write behavior tests and implement the payment workflow change. |
 | 43-50 min | Run lint, typecheck, static analysis, tests, and pre-commit. |
-| 50-56 min | Commit, push, open PR, inspect Qodo review. |
-| 56-60 min | Run PR Resolver or inspect the prepared remediation flow. |
+| 50-56 min | Commit, push, open PR, inspect local review evidence. |
+| 56-60 min | Resolve findings and rerun the local verification ladder. |
 
 ## Quality Gate Checkpoints
 
@@ -111,19 +111,18 @@ should leave behind visible proof that the workflow is moving forward.
 - **Setup gate:** `make doctor`, `make setup`, and starter `make verify` run
   successfully. You have a working local repo before asking an agent to change
   application behavior.
-- **Qodo access gate:** your fork is connected to Qodo, your API key is stored
-  outside git, and official plus repo-local skills are installed or documented
-  as unavailable. You have a review layer ready without committing credentials.
+- **Review setup gate:** local review skills are installed, the local QA command
+  is known, and no hosted-review credential or integration is required.
 - **Standards gate:** the relevant `PAY-*` rules are selected, linked rule docs
-  are read, repo skills are identified, and optional Qodo rule status is
-  recorded. You have turned the task into explicit quality constraints.
+  are read, and repo skills are identified. You have turned the task into
+  explicit quality constraints.
 - **Planning and TDD gate:** the high-level plan, build-session execution plan,
   and smallest useful failing behavior tests are identified or written. You
   have made the expected behavior observable before production code changes.
 - **Local verification gate:** targeted tests and `make verify` pass without
   disabling Ruff, Pyright, Bandit, Pytest, Semgrep, or commit checks. You have
   deterministic evidence that the change preserves the local contract.
-- **PR review and remediation gate:** the PR is open, Qodo findings are
+- **PR review and remediation gate:** the PR is open, local review findings are
   inspected, fixes or deferrals are documented, and `make verify` is rerun after
   remediation. You have completed the review loop rather than stopping at a
   passing local run.
@@ -141,7 +140,6 @@ Required:
 - `uv`
 - Node.js and npm
 - A coding agent such as Codex, Claude Code, Cursor, Windsurf, or Cline
-- Qodo account
 
 ## Setup
 
@@ -155,41 +153,6 @@ make verify
 
 If setup fails, paste the `make doctor` output into your coding agent and ask it to fix your local environment.
 
-## Qodo Setup
-
-1. Sign into the [Qodo portal](https://app.qodo.ai/).
-2. Connect GitHub to your fork.
-3. Generate an API key from the Qodo portal.
-4. Ask your coding agent to configure Qodo Skills.
-
-For normal workshop use, store the key in a local-only Qodo config file:
-
-```json
-{
-  "API_KEY": "sk-..."
-}
-```
-
-Save it at:
-
-```text
-~/.qodo/config.json
-```
-
-Qodo Skills default to the production Qodo API. Set `QODO_API_URL` in this
-file only if your instructor gives you a non-production Qodo API endpoint.
-
-Read:
-
-- [docs/01-qodo-portal-github.md](docs/01-qodo-portal-github.md)
-- [docs/02-qodo-api-key-and-skills.md](docs/02-qodo-api-key-and-skills.md)
-
-Install official Qodo Skills:
-
-```bash
-npx skills add qodo-ai/qodo-skills/skills
-```
-
 Install repo-local workshop skills:
 
 ```bash
@@ -199,17 +162,16 @@ make install-skills
 ## Repo-Local Rules
 
 The default pre-coding context is committed in [rules/README.md](rules/README.md).
-Qodo portal rules are optional enrichment. Do not block the workshop on portal
-rule setup.
+No hosted-review setup is required or permitted for this workshop.
 
 Repo-local rules are intentionally Markdown. That makes them readable by:
 
 - attendees
 - coding agents
 - reviewers
-- Qodo-hosted rule setup, when a team chooses to mirror or host the same standards in Qodo
+- local review skill inspection
 
-In the workshop, local rules are the baseline. Qodo-hosted rules and skills can carry the same quality expectations into review, but they are enrichment rather than a prerequisite.
+In the workshop, local rules and skills are the complete baseline and review path.
 
 ## Repo-Local Skills
 
@@ -225,7 +187,7 @@ Your task is to add one small payment workflow: either a refund workflow or capt
 
 This is intentionally a small change with production-shaped risk. Payment mutations are where AI-generated code can look correct while quietly breaking system guarantees. A retry can emit a duplicate event, a missing idempotency key can create duplicate work, an auth check can happen after state changes, or a response can drift from the public API contract.
 
-The point of this exercise is to practice making an agent work inside a quality system before it writes code. You will force the agent to read local rules, select the `PAY-*` standards that apply, use the payment-idempotency skill, write behavior tests first, run deterministic gates, and then compare the result with Qodo review feedback.
+The point of this exercise is to practice making an agent work inside a quality system before it writes code. You will force the agent to read local rules, select the `PAY-*` standards that apply, use the payment-idempotency skill, write behavior tests first, run deterministic gates, and then inspect local review feedback.
 
 By the end, you should be able to see the difference between "the agent changed files" and "the agent produced a change that preserved the system contract." The expected output is a small PR with tests, verification evidence, and a review/remediation loop, not a large feature.
 
@@ -249,10 +211,10 @@ When presenting this step, point out that `.plan/` is part of the lesson. The hi
 
 The workshop task is complete when you have a small PR that includes:
 
-- selected repo-local rules and optional Qodo rule status
+- selected repo-local rules and local review skill status
 - behavior tests and verification evidence
 - a passing `make verify` run without weakened gates
-- Qodo review evidence or the documented fallback path
+- local review evidence and any documented skipped checks
 - remediation notes for fixed or intentionally deferred findings
 
 ## Copy/Paste Agent Prompts
@@ -260,17 +222,13 @@ The workshop task is complete when you have a small PR that includes:
 ### Setup Prompt
 
 ```text
-Help me configure this repo for the Qodo workshop.
-
-I have a Qodo API key from the Qodo portal.
+Help me configure this repo for the local-first quality workshop.
 
 Requirements:
-- Do not commit the API key.
-- Store it only in a safe local developer location or environment variable.
-- Install or verify Qodo Skills.
+- Do not install or configure a hosted reviewer.
+- Install or verify the repo-local review skills.
 - Read `AGENTS.md` and `rules/README.md`.
 - Select the relevant repo-local rule IDs for the Hands-On Task and explain why each applies.
-- Optionally compare those rules with qodo-get-rules if Qodo rules are available.
 - If my local environment is missing dependencies, diagnose and fix them.
 ```
 
@@ -285,7 +243,8 @@ Use `AGENTS.md`, `rules/README.md`, selected `PAY-*` rules, and the
 payment-idempotency skill as constraints.
 The plan must include an implementation skill handoff that names the first
 implementation skill and the exact TDD prompt to run next.
-Treat qodo-get-rules as optional enrichment if available.
+Do not invoke Qodo or install hosted-review skills. Local rules and skills are
+the complete baseline.
 Do not write code yet.
 ```
 
@@ -342,9 +301,9 @@ These gates catch deterministic issues early:
 - Semgrep checks workshop-specific static-analysis patterns.
 - CI reruns the same ladder on PRs.
 
-Qodo review adds context-aware review after these gates; it does not replace them.
+Local review adds a second perspective after these gates; it does not replace them.
 
-## Open a PR and Let Qodo Review
+## Open a PR After Local QA
 
 ```bash
 git checkout -b feat/payment-workflow
@@ -359,7 +318,9 @@ Read:
 - [docs/05-open-pr-and-qodo-review.md](docs/05-open-pr-and-qodo-review.md)
 - [docs/06-pr-resolver-remediation.md](docs/06-pr-resolver-remediation.md)
 
-In the Qodo review, distinguish evidence from configuration. It is fine to say this repo contains local rules and skills. Only say Qodo used a skill in review when the review surface shows evidence such as `Skill insights`, a visible skills/context section, or a Qodo comment that names the skill.
+In the local review, distinguish evidence from configuration. Report the exact
+local commands, findings, fixes, and skipped checks. Do not claim hosted-review
+coverage.
 
 ## Slides
 
@@ -368,6 +329,7 @@ The live companion deck is linked from [slides/README.md](slides/README.md).
 ## Fallbacks
 
 - Local setup failing? Paste `make doctor` output into your coding agent.
-- Qodo API setup failing? Continue with repo skills, local gates, and the instructor demo.
-- Qodo review delayed? Use the prepared instructor PR: [Instructor demo: red refund workflow gate](https://github.com/nnennandukwe/qodo-quality-workshop-signalpay/pull/1).
+- Hosted-review setup is intentionally unavailable. Continue with repo skills and local gates.
+- Hosted review is unavailable by policy. Use local review skills and the
+  prepared local evidence instead.
 - Behind the room? Continue asynchronously from this README.

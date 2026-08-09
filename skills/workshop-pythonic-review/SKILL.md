@@ -5,7 +5,7 @@ description: "Review changed Python code for clear, modern, maintainable Python 
 
 # Workshop Pythonic Review
 
-Use after implementation and before PR.
+Use after implementation and before a pull request.
 
 ## Review Focus
 
@@ -27,4 +27,3 @@ Use after implementation and before PR.
 ## Output
 
 Report only changed Python files and prioritize correctness over style.
-

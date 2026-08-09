@@ -1,6 +1,7 @@
 # Agent Instructions
 
-This repo is a Qodo workshop app. Treat it as an exercise in quality-first AI coding.
+This repo is a quality-first artificial intelligence coding workshop app. The former Qodo workflow is
+retired. Treat this as an exercise in local-first quality assurance (QA).
 
 ## Core Workflow
 
@@ -13,21 +14,22 @@ Follow this loop for implementation tasks:
 5. Implement the smallest useful change.
 6. Run `make verify`.
 7. Do not weaken verification gates to make a change pass.
-8. Open a PR and use Qodo review plus PR Resolver for remediation.
+8. Open a pull request (PR) after local QA and local review skills pass. Hosted review is not
+   automatic or required for merge.
 
-Qodo portal rules are optional enrichment. If `qodo-get-rules` is available,
-compare those results with the selected repo-local rules, but do not block
-planning or implementation on portal rule setup.
+Qodo is fully halted. Do not install, authenticate, connect, or invoke it.
+Use the committed repo-local rules and review skills as the complete QA path.
 
 ## Quality Rules
 
 - Preserve idempotency for payment mutation endpoints.
-- Preserve the public API contract shape: camelCase JSON fields and stable event keys.
+- Preserve the public application programming interface (API) contract shape: camelCase JSON fields and stable event keys.
 - Keep authentication and scope checks before state mutation.
 - Add or update tests for every behavior change.
-- Keep secrets out of git. Never commit Qodo API keys.
+- Keep secrets out of git. Never commit hosted-review credentials.
 - Use Conventional Commits for commit messages.
-- Keep `rules/` as committed Markdown. Do not move workshop rules into `.qodo/`.
+- Keep `rules/` as committed Markdown. Do not create a hosted-review config for
+  this workshop.
 
 ## Local Commands
 
