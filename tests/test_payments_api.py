@@ -1,6 +1,6 @@
 from fastapi.testclient import TestClient
 
-from signalpay_api.app import app, payment_events, reset_state
+from signalpay_api.app import app, payment_events, payments, reset_state
 
 
 def client() -> TestClient:
@@ -66,3 +66,100 @@ def test_rejects_sessions_for_other_token_families() -> None:
 
     assert response.status_code == 401
     assert response.json()["detail"] == "session token is not valid for audience payments-api"
+
+
+# --- Refund workflow (PAY-001..010) -----------------------------------------
+
+
+def _capture_pay_1001(api: TestClient) -> None:
+    """Bring pay_1001 into the refundable `captured` state via the real endpoint."""
+    api.post(
+        "/payments/pay_1001/capture",
+        headers=auth("sp_live_payments_capture") | {"Idempotency-Key": "cap-pay-1001-001"},
+    )
+
+
+def test_refund_requires_an_idempotency_key() -> None:
+    # PAY-001: a payment mutation with no Idempotency-Key fails closed before mutation.
+    response = client().post("/payments/pay_1001/refund", headers=auth("sp_live_payments_refund"))
+
+    assert response.status_code == 400
+    assert response.json()["detail"] == "Idempotency-Key header is required"
+    assert payment_events == []
+    assert payments["pay_1001"]["status"] == "authorized"
+
+
+def test_refund_requires_refund_scope() -> None:
+    # PAY-002: a token without payments:refund is rejected before any state/event change.
+    response = client().post(
+        "/payments/pay_1001/refund",
+        headers=auth("sp_live_payments_capture") | {"Idempotency-Key": "ref-denied-001"},
+    )
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "payments:refund scope is required"
+    assert payment_events == []
+    assert payments["pay_1001"]["status"] == "authorized"
+
+
+def test_refund_rejects_uncaptured_payment() -> None:
+    # PAY-010: the captured -> refunded transition is explicit; refunding a
+    # non-captured payment is rejected and emits no event.
+    response = client().post(
+        "/payments/pay_1001/refund",
+        headers=auth("sp_live_payments_refund") | {"Idempotency-Key": "ref-uncaptured-001"},
+    )
+
+    assert response.status_code == 409
+    assert response.json()["detail"] == "payment must be captured before refund"
+    assert [e for e in payment_events if e["type"] == "payment.refunded"] == []
+    assert payments["pay_1001"]["status"] == "authorized"
+
+
+def test_refund_is_idempotent_and_emits_one_event() -> None:
+    # PAY-003/004/005/006: a retried refund returns the original response and
+    # emits exactly one payment.refunded event with the stable contract shape.
+    api = client()
+    _capture_pay_1001(api)
+
+    refund_headers = auth("sp_live_payments_refund") | {"Idempotency-Key": "ref-pay-1001-001"}
+    first = api.post("/payments/pay_1001/refund", headers=refund_headers)
+    second = api.post("/payments/pay_1001/refund", headers=refund_headers)
+
+    assert first.status_code == 200
+    assert second.status_code == 200
+    assert first.json() == second.json()
+    assert first.json() == {
+        "paymentId": "pay_1001",
+        "customerId": "cus_9001",
+        "amount": 12500,
+        "currency": "USD",
+        "status": "refunded",
+    }
+
+    refund_events = [e for e in payment_events if e["type"] == "payment.refunded"]
+    assert len(refund_events) == 1
+    assert refund_events[0]["paymentId"] == "pay_1001"
+    assert refund_events[0]["customerId"] == "cus_9001"
+    assert refund_events[0]["status"] == "refunded"
+
+
+def test_refunded_payment_cannot_be_recaptured() -> None:
+    api = client()
+    _capture_pay_1001(api)
+    refund = api.post(
+        "/payments/pay_1001/refund",
+        headers=auth("sp_live_payments_refund") | {"Idempotency-Key": "ref-pay-1001-001"},
+    )
+    event_count = len(payment_events)
+
+    recapture = api.post(
+        "/payments/pay_1001/capture",
+        headers=auth() | {"Idempotency-Key": "cap-pay-1001-after-refund"},
+    )
+
+    assert refund.status_code == 200
+    assert recapture.status_code == 409
+    assert recapture.json()["detail"] == "payment must be authorized before capture"
+    assert len(payment_events) == event_count
+    assert payments["pay_1001"]["status"] == "refunded"
