@@ -4,13 +4,13 @@
 
 Paste the output into your coding agent and ask it to fix missing local dependencies.
 
-## Qodo API key is missing
+## Hosted-review setup is unavailable
 
-Generate a key in the Qodo portal. Then store it in `~/.qodo/config.json` or `QODO_API_KEY`.
+This is intentional. Do not generate an application programming interface (API)
+key or connect a hosted reviewer.
+Continue with repo-local rules, local review skills, and `make verify`.
 
-Never commit secrets.
-
-## Qodo rules cannot load
+## Local rules cannot load
 
 Continue with repo-local rules, repo-local skills, and visible standards:
 
@@ -19,11 +19,13 @@ Continue with repo-local rules, repo-local skills, and visible standards:
 - `skills/payment-idempotency/SKILL.md`
 - `.plan/workshop-payment-task/plan.md`
 
-Document the fallback in your PR.
+Document the missing local rule or skill in your pull request and stop if a required gate
+cannot be verified.
 
-## Qodo review is delayed
+## Local review is unclear
 
-Wait a few minutes and refresh the PR. If it still has not posted, follow the instructor PR walkthrough and finish asynchronously.
+Inspect the diff against the selected rules and run the local review skill again.
+Do not wait for or trigger a hosted reviewer.
 
 ## Semgrep is slow or unavailable
 

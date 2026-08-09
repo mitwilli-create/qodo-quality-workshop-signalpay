@@ -1,61 +1,26 @@
-# 06. PR Resolver Remediation
+# 06. Local Review Remediation
 
-Use Qodo PR Resolver after Qodo has commented on your pull request.
+Use the local review skill after the deterministic gates pass. This step
+teaches that review feedback is part of the loop. The goal is to fix, defer
+with rationale, and verify again.
 
-This step teaches that review feedback is part of the loop. The goal is not to
-hide findings or rush to merge. The goal is to fix, defer with rationale, and
-verify again.
+## What the local review should do
 
-## Prerequisites
-
-- Current branch has an open PR.
-- Qodo has posted review findings.
-- GitHub CLI is authenticated.
-
-## Invocation
-
-Codex:
-
-```text
-$qodo-pr-resolver
-```
-
-Claude Code:
-
-```text
-/qodo-pr-resolver
-```
-
-## What PR Resolver Should Do
-
-- fetch Qodo findings
-- preserve Qodo issue titles and severity
-- apply fixes or help you defer with a reason
-- reply to inline comments
-- post a remediation summary
-
-PR Resolver is useful because it keeps remediation tied to the review evidence.
-It should not invent a new scope or weaken local gates to satisfy a finding.
+- inspect the changed diff for correctness, security, quality, and contract
+  violations
+- preserve exact findings and severity
+- apply fixes only after technical evaluation
+- record deferred findings with a reason
+- rerun `make verify`
 
 ## Checkpoint
 
-You are done with remediation when:
+You are done when:
 
-- every Qodo finding is fixed or explicitly deferred with a reason
-- any PR Resolver changes are reviewed before they are kept
-- `make verify` passes again after remediation
-- the PR includes a short summary of what changed after review
+- every finding is fixed or explicitly deferred with a reason
+- proposed fixes have been reviewed before they are kept
+- `make verify` passes again
+- the pull request includes a short remediation summary
 
-## Human Judgment
-
-You are still accountable for the code. Review the proposed fixes before merge and rerun:
-
-```bash
-make verify
-```
-
-When presenting this step, emphasize that remediation closes the quality loop:
-
-```text
-review finding -> fix or defer with reason -> rerun local gates -> update PR evidence
-```
+The human remains accountable for the code. Do not install or invoke Qodo,
+Greptile, or another hosted reviewer to perform this step.

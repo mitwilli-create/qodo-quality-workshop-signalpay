@@ -2,9 +2,9 @@
 
 Local gates are the cheapest useful place to catch deterministic issues.
 
-This step teaches early-and-often verification. Qodo review adds contextual
-feedback later, but deterministic issues should be caught before the PR is
-opened.
+This step teaches early-and-often verification. Local review adds a second
+perspective after deterministic gates, but deterministic issues should be
+caught before the pull request is opened.
 
 ## Gates
 
@@ -13,7 +13,7 @@ opened.
 | Ruff lint | `make lint` | Imports, style, correctness, maintainability |
 | Pyright | `make typecheck` | Static type and interface issues |
 | Bandit | `make security` | Common Python security risks |
-| Pytest | `make test` | API behavior |
+| Pytest | `make test` | Application programming interface (API) behavior |
 | Semgrep | `make semgrep` | Workshop-specific static analysis |
 | Full ladder | `make verify` | All local gates |
 
@@ -27,20 +27,20 @@ Static analysis is not one tool. It is a stack of checks with different jobs:
 - Semgrep catches workshop-specific patterns such as unsafe payment mutation
   behavior.
 - Pre-commit reruns selected checks before commits.
-- GitHub Actions runs `make verify` again on PRs.
+- GitHub Actions runs `make verify` again on pull requests.
 
 The teaching point is that no single gate understands the whole system. The
-workflow layers deterministic checks with behavior tests and then adds Qodo
-review for context-aware findings.
+workflow layers deterministic checks with behavior tests and then adds a local
+review skill for context-aware findings.
 
 ## Checkpoint
 
-You are ready to open a PR when:
+You are ready to open a pull request when:
 
 - targeted tests for the changed behavior pass
 - `make verify` passes without disabling or loosening any gate
 - any earlier failure is classified and fixed in the implementation or tests
-- your notes or PR description include the verification command you ran
+- your notes or pull-request description include the verification command you ran
 
 ## Agent Prompt
 
@@ -54,7 +54,8 @@ Re-run verification.
 
 ## Principle
 
-Qodo does not replace deterministic gates. Qodo adds context-aware review on top of tests, linters, type checks, and static analysis.
+Local review does not replace deterministic gates. It adds context-aware review
+on top of tests, linters, type checks, and static analysis.
 
 Do not weaken a gate to keep the workshop moving. If a gate fails, treat the
 failure as useful feedback and fix the implementation, tests, or docs.

@@ -12,24 +12,18 @@ In this workshop, rules answer **what must be true**. Skills answer **how the ag
 | `workshop-tdd-bdd` | Test-first implementation | Forces behavior to be described as Given/When/Then scenarios before production code changes. |
 | `payment-idempotency` | Payment mutation work | Keeps idempotency, auth-before-mutation, stable event shape, and retry behavior in the agent's working context. |
 | `workshop-failure-path-testing` | Negative-path coverage | Makes unsafe behavior fail closed and proves blocked paths do not mutate state or emit events. |
-| `workshop-guidelines-audit` | Pre-commit and pre-PR review | Checks the current diff against `AGENTS.md`, repo-local rules, selected skills, and verification evidence. |
+| `workshop-guidelines-audit` | Pre-commit and pre-pull-request review | Checks the current diff against `AGENTS.md`, repo-local rules, selected skills, and verification evidence. |
 | `workshop-pythonic-review` | Python review | Reviews changed Python code for maintainability without duplicating Ruff's lint checks. |
 
 ## How Skills Fit the Quality Loop
 
 ```text
-plan-from-task -> tdd-bdd -> payment-idempotency/failure-path-testing -> guidelines-audit -> Qodo review -> PR Resolver
+plan-from-task -> tdd-bdd -> payment-idempotency/failure-path-testing -> guidelines-audit -> local review -> local remediation
 ```
 
-The repo-local skills are committed so attendees can inspect them and agents can use them even when Qodo portal setup is not ready.
-
-Official Qodo Skills are installed separately and can enrich the workflow:
-
-```bash
-npx skills add qodo-ai/qodo-skills/skills
-```
-
-Use Qodo-hosted skills and rules when available, but do not make the workshop depend on them. The local Markdown skills are the reliable fallback and the teaching source.
+The repo-local skills are committed so attendees can inspect them and agents can
+use them without a provider account. Qodo and all other hosted-review skill
+installations are outside this workshop's policy.
 
 ## Review Evidence Boundary
 
@@ -37,6 +31,7 @@ Be precise when presenting results:
 
 - It is always safe to say the repo contains local skills.
 - It is safe to say the coding agent used a local skill when the agent invocation or notes show that usage.
-- Only say Qodo used a skill in review when the Qodo review surface shows evidence such as `Skill insights`, a visible skills/context section, or a Qodo comment naming the skill.
+- Report only local skill usage that is visible in the prompt, plan, command
+  output, or review receipt.
 
 This distinction matters because the workshop is teaching evidence-based quality, not just tool configuration.

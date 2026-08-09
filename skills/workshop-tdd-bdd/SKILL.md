@@ -1,9 +1,9 @@
 ---
 name: workshop-tdd-bdd
-description: "Guide workshop participants through behavior-first TDD: scenarios, failing tests, minimal implementation, and refactor under verification gates."
+description: "Guide workshop participants through behavior-first test-driven development (TDD) and behavior-driven development (BDD): scenarios, failing tests, minimal implementation, and refactor under verification gates."
 ---
 
-# Workshop TDD BDD
+# Workshop Test-Driven and Behavior-Driven Development
 
 Drive changes from observable behavior, not speculative implementation.
 
@@ -41,4 +41,3 @@ Report:
 - red/green validation
 - local gates run
 - remaining gaps
-

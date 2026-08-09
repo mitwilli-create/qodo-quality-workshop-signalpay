@@ -13,6 +13,7 @@ Use these rules when changing token validation, scopes, or mutation handlers.
 ## Session Handling Notes
 
 - Use the existing `verify_session` helper for local workshop tokens.
-- Keep the audience check set to `payments-api` for payment API routes.
+- Keep the audience check set to `payments-api` for payment application
+  programming interface (API) routes.
 - Return clear `401` errors for missing, unknown, or wrong-audience tokens.
 - Return clear `403` errors for known tokens that lack the required scope.

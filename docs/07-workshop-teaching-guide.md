@@ -4,19 +4,19 @@ Use this guide when presenting the repo. The goal is to help attendees understan
 
 ## Teaching Frame
 
-This repo demonstrates a quality-first AI coding loop:
+This repo demonstrates a quality-first artificial intelligence (AI) coding loop:
 
 ```text
-task context -> plan -> repo rules -> repo skills -> tests -> implementation -> local gates -> PR -> Qodo review -> remediation
+task context -> plan -> repo rules -> repo skills -> tests -> implementation -> local gates -> pull request -> local review -> remediation
 ```
 
 The lesson is that AI coding needs a control system around it. The coding agent can move quickly, but the repo gives it standards, tests, deterministic checks, and review feedback so speed does not turn into silent contract drift.
 
-You can describe this as SDLC or ADLC quality control:
+You can describe this as software development life cycle (SDLC) or artificial intelligence development life cycle (ADLC) quality control:
 
 - **Before coding:** make intent, risk, and standards explicit.
 - **During coding:** make behavior observable with tests and local static checks.
-- **After coding:** use CI and Qodo review as an independent review layer.
+- **After coding:** use continuous integration (CI) and local review as an independent review layer.
 - **After review:** remediate findings and rerun verification.
 
 ## Repository Tour
@@ -26,13 +26,13 @@ You can describe this as SDLC or ADLC quality control:
 | `README.md` | The workshop path, quality loop, hands-on task, and copy/paste prompts. |
 | `AGENTS.md` | The agent operating contract: read rules, plan first, test first, verify, and do not weaken gates. |
 | `.plan/` | Planning is a committed artifact in this workshop so attendees can inspect the reasoning before implementation. |
-| `rules/` | Repo-local quality standards that humans, coding agents, and Qodo-hosted rules can all mirror. |
-| `skills/` | Repo-local agent procedures for planning, TDD, idempotency, failure-path testing, and review. |
-| `docs/` | Step-by-step learning modules for setup, Qodo, rules, gates, PR review, and remediation. |
-| `src/signalpay_api/` | A deliberately small FastAPI payments API with production-shaped risks. |
+| `rules/` | Repo-local quality standards that humans and coding agents can inspect directly. |
+| `skills/` | Repo-local agent procedures for planning, test-driven development (TDD), idempotency, failure-path testing, and review. |
+| `docs/` | Step-by-step learning modules for local rules, gates, pull-request review, and remediation. |
+| `src/signalpay_api/` | A deliberately small FastAPI payments application programming interface (API) with production-shaped risks. |
 | `tests/` | Behavior tests that make payment safety requirements visible. |
 | `.semgrep.yml` | Workshop-specific static analysis for payment idempotency risk. |
-| `.github/workflows/verify.yml` | CI proof that the same local verification ladder runs on PRs. |
+| `.github/workflows/verify.yml` | CI proof that the same local verification ladder runs on pull requests (PRs). |
 
 The repo is small on purpose. The point is not payment-system completeness. The point is that each quality mechanism is visible enough to teach.
 
@@ -58,7 +58,8 @@ Rules answer:
 - Which tasks trigger which standards?
 - What verification signal proves the rule was respected?
 
-Qodo-hosted rules can extend this model. If a team wants Qodo to carry the same standards into review, they can host equivalent rules in Qodo. In this workshop, hosted rules are optional enrichment; the repo-local Markdown rules keep the lesson reliable even when portal setup is not complete.
+Hosted rules are outside this workshop. The repo-local Markdown rules keep the
+lesson reliable without a provider account or portal setup.
 
 ## Skills Layer
 
@@ -72,7 +73,8 @@ For example, `payment-idempotency` turns an abstract payment safety concern into
 - avoid duplicate events
 - test first request and retry behavior
 
-Qodo-hosted skills can also be used so review-time tooling can leverage team procedures. Be precise in the room: only claim Qodo used a skill when the review surface shows evidence such as `Skill insights`, a visible skills/context section, or a Qodo comment that names the skill.
+Local review skills leverage the same team procedures during review. Report only
+skill usage that is visible in the prompt, plan, command output, or receipt.
 
 ## Static Analysis and Gates
 
@@ -88,7 +90,8 @@ Local gates are deterministic checks that run before review:
 | Pre-commit | Formatting, security, and Conventional Commit checks at commit time. |
 | CI | The same verification ladder on PRs. |
 
-This is the early-and-often part of the lesson. Qodo review is valuable because it adds context-aware review on top of these gates, not because it replaces them.
+This is the early-and-often part of the lesson. Local review is valuable because
+it adds context-aware review on top of these gates, not because it replaces them.
 
 ## Review and Remediation Layer
 
@@ -101,16 +104,18 @@ The PR is the independent review point. Attendees should inspect:
 - remediation guidance
 - PR summary
 
-PR Resolver belongs after Qodo has posted findings. It helps apply or document fixes, but the human still reviews the changes and reruns `make verify`.
+Local remediation belongs after the local review skill has posted findings. It
+helps apply or document fixes, but the human still reviews the changes and
+reruns `make verify`.
 
 ## Presenter Script
 
 Use this short explanation when you need to explain the repo quickly:
 
 ```text
-This repo is built as a quality-control system for AI coding. The app is small, but the workflow is production-shaped. The agent starts with AGENTS.md, plans in .plan, reads repo-local PAY rules, uses repo-local skills, writes behavior tests, runs deterministic gates, opens a PR, lets Qodo review the change, then remediates findings and verifies again.
+This repo is built as a quality-control system for AI coding. The app is small, but the workflow is production-shaped. The agent starts with AGENTS.md, plans in .plan, reads repo-local PAY rules, uses repo-local skills, writes behavior tests, runs deterministic gates, performs a local review, opens a PR, then remediates findings and verifies again.
 
-The important idea is that standards are useful at more than one point. We use them before coding as context, during coding as tests and static checks, and after coding as review criteria. If a team wants Qodo to host those same rules and skills, they can, but this repo keeps the baseline committed in Markdown so every attendee can inspect and reuse it.
+The important idea is that standards are useful at more than one point. We use them before coding as context, during coding as tests and static checks, and after coding as review criteria. This repo keeps the baseline committed in Markdown so every attendee can inspect and reuse it.
 ```
 
 ## What Good Looks Like

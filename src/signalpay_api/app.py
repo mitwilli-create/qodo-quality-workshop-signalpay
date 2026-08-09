@@ -41,11 +41,15 @@ payment_events: list[dict[str, Any]] = []
 idempotency_results: dict[tuple[str, str, str], dict[str, Any]] = {}
 
 app = FastAPI(
-    title="SignalPay Payments API",
-    summary="Self-contained payments API for the Qodo quality-first workshop.",
+    title="SignalPay Payments Application Programming Interface (API)",
+    summary=(
+        "Self-contained payments application programming interface for the "
+        "local-first quality workshop."
+    ),
     description=(
-        "Use this API through `/docs` to practice planning, Qodo rules, "
-        "local verification gates, PR review, and remediation."
+        "Use this application programming interface through `/docs` to practice "
+        "planning, local rules, local verification gates, pull-request review, "
+        "and remediation."
     ),
 )
 

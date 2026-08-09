@@ -14,7 +14,7 @@ Use this skill before writing production code.
 3. Read `rules/README.md` and select relevant `PAY-*` rule IDs.
 4. Read the linked rule documents for the selected rules.
 5. Read relevant domain skills, especially `skills/payment-idempotency/SKILL.md`.
-6. Optionally compare with Qodo rules if available.
+6. Do not invoke hosted rules. Record hosted review as skipped by policy.
 7. Create or update:
    - `.plan/workshop-payment-task/plan.md`
    - `.plan/workshop-payment-task/build-session-execution-plan.md`
@@ -25,7 +25,7 @@ Include:
 
 - Summary
 - Selected repo-local rule IDs
-- Optional Qodo rule status
+- Hosted review status: skipped by policy
 - Skill routing, including the implementation entry skill and exact next prompt
 - Scope and out-of-scope items
 - Given/When/Then behavior scenarios

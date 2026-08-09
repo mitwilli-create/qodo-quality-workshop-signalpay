@@ -20,15 +20,6 @@ check "uv" uv
 check "node" node
 check "npm" npm
 
-if [ -n "${QODO_API_KEY:-}" ]; then
-  echo "ok: QODO_API_KEY is set in the environment"
-elif [ -f "$HOME/.qodo/config.json" ]; then
-  echo "ok: ~/.qodo/config.json exists"
-else
-  echo "missing: Qodo API key configuration"
-  echo "  Generate a key in the Qodo portal and ask your coding agent to configure it safely."
-fi
-
 if [ -d ".agents/skills" ]; then
   echo "ok: repo-local .agents/skills directory exists"
 else
@@ -43,4 +34,3 @@ fi
 
 echo
 echo "Workshop doctor passed. Next: make setup && make verify"
-
