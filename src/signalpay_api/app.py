@@ -110,6 +110,9 @@ def capture_payment(
         return idempotency_results[result_key]
 
     payment = payments[payment_id]
+    if payment["status"] != "authorized":
+        raise HTTPException(status_code=409, detail="payment must be authorized before capture")
+
     payment["status"] = "captured"
 
     event = build_payment_event(

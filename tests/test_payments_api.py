@@ -85,6 +85,8 @@ def test_refund_requires_an_idempotency_key() -> None:
 
     assert response.status_code == 400
     assert response.json()["detail"] == "Idempotency-Key header is required"
+    assert payment_events == []
+    assert payments["pay_1001"]["status"] == "authorized"
 
 
 def test_refund_requires_refund_scope() -> None:
@@ -140,3 +142,24 @@ def test_refund_is_idempotent_and_emits_one_event() -> None:
     assert refund_events[0]["paymentId"] == "pay_1001"
     assert refund_events[0]["customerId"] == "cus_9001"
     assert refund_events[0]["status"] == "refunded"
+
+
+def test_refunded_payment_cannot_be_recaptured() -> None:
+    api = client()
+    _capture_pay_1001(api)
+    refund = api.post(
+        "/payments/pay_1001/refund",
+        headers=auth("sp_live_payments_refund") | {"Idempotency-Key": "ref-pay-1001-001"},
+    )
+    event_count = len(payment_events)
+
+    recapture = api.post(
+        "/payments/pay_1001/capture",
+        headers=auth() | {"Idempotency-Key": "cap-pay-1001-after-refund"},
+    )
+
+    assert refund.status_code == 200
+    assert recapture.status_code == 409
+    assert recapture.json()["detail"] == "payment must be authorized before capture"
+    assert len(payment_events) == event_count
+    assert payments["pay_1001"]["status"] == "refunded"
